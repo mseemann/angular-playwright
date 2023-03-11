@@ -1,18 +1,18 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+const URL = 'http://localhost:4200/';
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
+test('has title', async ({ page }) => {
+  await page.goto(URL);
+
+  await expect(page).toHaveTitle('Angular Playwright');
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test('show text on button click', async ({ page }) => {
+  await page.goto(URL);
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+  await page.getByText('Click me').click();
 
-  // Expects the URL to contain intro.
-  await expect(page).toHaveURL(/.*intro/);
+  await expect(page.locator('div').last()).toContainText('A text.');
+
 });
